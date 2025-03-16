@@ -1,0 +1,52 @@
+package ProcessoContratos;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+public class Contrato {
+	private int numero;
+	private Date data;
+	private double valorTotal;
+	
+	public Contrato(int numero, Date data, double valorTotal) {
+		this.numero = numero;
+		this.data = data;
+		this.valorTotal = valorTotal;
+	}
+	
+	public int getNumero() {
+		return numero;
+	}
+	
+	public Date getData() {
+		return data;
+	}
+	
+	public double getValorTotal() {
+		return valorTotal;
+	}
+	
+	 public List<Parcela> gerarParcelas(int numeroParcelas) {
+	        List<Parcela> parcelas = new ArrayList<>();
+	        double valorParcelaBase = valorTotal / numeroParcelas;
+	        Calendar calendar = Calendar.getInstance();
+	        calendar.setTime(data);
+	        
+	        for (int i = 1; i <= numeroParcelas; i++) {
+	        	calendar.add(Calendar.MONTH, 1);
+	        	Date dataVencimento = calendar.getTime();
+	        	
+	        	double juros = valorParcelaBase * 0.01 * i;
+	        	double valorComJuros = valorParcelaBase + juros;
+	        	
+	        	double taxaPagamento = valorComJuros * 0.02;
+	            double valorFinalParcela = valorComJuros + taxaPagamento;
+	        	
+	        	parcelas.add(new Parcela(dataVencimento, valorFinalParcela));
+	        }
+	        
+	        return parcelas;
+}
+}
