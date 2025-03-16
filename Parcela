@@ -1,0 +1,29 @@
+package ProcessoContratos;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class Parcela {
+	private Date dataVencimento;
+	private double valor;
+	
+	public Parcela(Date dataVencimento, double valor) {
+		this.dataVencimento = dataVencimento;
+		this.valor = valor;
+	}
+	
+	public Date getDataVencimento() {
+		return dataVencimento;
+	}
+	
+	public double getValor() {
+		return valor;
+	}
+	
+	@Override
+	public String toString() {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		return sdf.format(dataVencimento) + " – " + String.format("%.2f", valor);
+	}
+
+}
